@@ -1,12 +1,14 @@
 import './App.css'
-import {Login} from "./page/Login.tsx";
+import {BrowserRouter as Router} from 'react-router-dom';
+import {AppProvider} from "./AppProvider.tsx";
 
 function App() {
 
     return (
-        <>
-            <Login/>
-        </>
+            <Router>
+                <AppProvider/>
+            </Router>
+
     )
 }
 

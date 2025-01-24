@@ -1,17 +1,22 @@
-import {Divider, InputLabel, Paper, Stack} from "@mui/material";
+import {Divider, Paper, Stack} from "@mui/material";
 import {pixelToRem} from "./utils/pageUtils.ts";
 import {IDPButton} from "./IDPButton.tsx";
 import github from '../assets/idp/github.svg';
 import google from '../assets/idp/google.svg';
-import facebook from '../assets/idp/facebook.svg';
-import linkedin from '../assets/idp/linkedin.svg';
 import microsoft from '../assets/idp/microsoft.svg';
 import {MyText} from "./component/MyText.tsx";
-import {MyLink} from "./component/MyLink.tsx";
 import {MyTextField} from "./component/MyTextField.tsx";
+import {MyButton} from "./component/MyButton.tsx";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
+import {useState} from "react";
 
+export const SignIn = () => {
 
-export const Login = () => {
+    const [visibility, setVisibility] = useState<boolean>(false);
+
+    const onClickVisibility = () => {
+        setVisibility(!visibility);
+    }
 
     return (
         <Stack height={'100vh'} justifyContent={'center'} alignItems={'center'}>
@@ -21,7 +26,6 @@ export const Login = () => {
                 height: pixelToRem(500)
             }}>
                 <Stack height={'100%'} alignItems={'center'} spacing={2} padding={5}>
-
 
                     <MyText text={'Sign in'}/>
                     <MyText text={'Welcome, please sign in to continue'}/>
@@ -41,15 +45,24 @@ export const Login = () => {
                         <Divider sx={{
                             width: '100%'
                         }}><MyText text={'Or'}/></Divider>
-                        <MyTextField placeholder={'Email'} inputStyle={{
+                        <MyTextField placeholder={'Username'}  inputStyle={{
                             height: pixelToRem(41),
-                        }} />
+                        }}/>
                         <MyTextField placeholder={'Password'} inputStyle={{
                             height: pixelToRem(41),
-                        }} />
+                            cursor: 'pointer'
+                        }} slotProps={{
+                            input: {
+                                endAdornment: visibility ?
+                                    <Visibility onClick={onClickVisibility}/> : <VisibilityOff onClick={onClickVisibility}/>
+                            }
+                        }} type={visibility ? 'text' : 'password'} />
+                        <MyButton text={'Sign in'} variant={'contained'}/>
                     </Stack>
                 </Stack>
             </Paper>
         </Stack>
     )
 }
+
+export default {SignIn};
